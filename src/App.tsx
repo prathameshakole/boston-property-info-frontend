@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Homepage from './components/homepage';
 import {HashRouter} from "react-router-dom";
@@ -10,7 +9,7 @@ function App() {
     <HashRouter>
       <div>
         <Routes>
-        <Route path="/"         element={<Homepage/>}/>
+        <Route path="/" element={<Homepage/>}/>
         </Routes>
       </div>
     </HashRouter>
