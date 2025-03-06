@@ -42,6 +42,8 @@ const client = axios.create({
           keyword,
         },
       });
+
+      console.log(response);
       const addresses = response.data.sort();
       return addresses;
     } catch (error: any) {

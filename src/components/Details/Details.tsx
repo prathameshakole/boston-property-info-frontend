@@ -18,23 +18,9 @@ const Details = () => {
         lng: propertyData.longitude || -71.0589,
     };
 
-    const defaultZoom = 11;
-
-    // const renderPropertyData = () => {
-    //     return Object.entries(propertyData).map(([key, value]) => {
-    //         if (value) {
-    //             return (
-    //                 <Typography key={key} variant="body1" sx={{ mb: 1 }}>
-    //                     {`${key}: ${value}`}
-    //                 </Typography>
-    //             );
-    //         }
-    //         return null;
-    //     });
-    // };
+    const defaultZoom = 5;
 
     const renderPropertyData = () => {
-        // If propertyData is an array of property objects
         if (Array.isArray(propertyData)) {
             return propertyData.map((prop, index) => (
                 <Box key={index} sx={{ mb: 2 }}>
@@ -60,7 +46,6 @@ const Details = () => {
                 </Box>
             ));
         } else if (propertyData) {
-            // If propertyData is a single property object, render one table
             return (
                 <Box sx={{ mb: 2 }}>
                     <Typography variant="h6" sx={{ mb: 1 }}>
@@ -93,11 +78,11 @@ const Details = () => {
     return (
         <div>
             <NavBar />
-            <Box sx={{ display: 'flex', flexDirection: 'row', height: '90vh', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', height: '90vh', width: '100%', justifyContent: 'space-between' }}>
                 <Box sx={{ flex: 1, height: '100%' }}>
                     This will be the map
                 </Box>
-                <Box sx={{ flex: 2, padding: 2, overflowY: 'auto' }}>
+                <Box sx={{ flex: 2, padding: 2 }}>
                     {renderPropertyData()}
                 </Box>
             </Box>
