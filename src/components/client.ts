@@ -42,13 +42,29 @@ const client = axios.create({
           keyword,
         },
       });
-
-      console.log(response);
       const addresses = response.data.sort();
       return addresses;
     } catch (error: any) {
       throw new Error(error.response.data.error || error.message);
     }
+  };
+
+  export const getOwnersbyKeyword = async (keyword: string) => {
+    if (!keyword) {
+      throw new Error("Keyword query parameter is required");
+    }
+    try {
+      const response = await client.get(`${API_BASE_URL}/owners/search`, {
+        params: {
+          keyword,
+        },
+      });
+
+      const owners = response.data.sort();    
+      return owners;          
+    } catch (error: any) {
+      throw new Error(error.response.data.error || error.message);
+    }    
   };
   
 
