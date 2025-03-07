@@ -12,13 +12,18 @@ import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 import { getPropertyByAddress, getAddressbyKeyword, getOwnersbyKeyword } from '../client';
 import { useNavigate } from 'react-router-dom';
+import CssBaseline from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 type SearchMode = 'address' | 'owner';
 
+interface HomepageProps {
+  darkMode: boolean;
+  toggleDarkMode: () => void;
+}
 
-const Homepage = () => {
+const Homepage = ({ darkMode, toggleDarkMode } : HomepageProps) => {
   const [query, setQuery] = useState<string>('');
   const [properties, setProperties] = useState<any[]>([]);
-  const [address, setAddress] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [searchMode, setSearchMode] = useState<SearchMode>('address');
   const navigate = useNavigate();
@@ -84,112 +89,123 @@ const Homepage = () => {
     }
   };
 
+  const theme = createTheme({
+    palette: {
+      mode: darkMode ? 'dark' : 'light',
+    },
+  });
+
+
   return (
     <div>
-      <NavBar />
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
-        <Typography
-          variant="h5"
-          sx={{ mb: 2, mt: 2, fontWeight: 'bold', color: '#333', fontFamily: 'monospace' }}
-        >
-          Find Information About Boston Properties
-        </Typography>
-
-        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-          <Button
-            variant={searchMode === 'address' ? 'contained' : 'outlined'}
-            onClick={() => {
-              setSearchMode('address');
-              setProperties([]);
-              setQuery('');
-              setError(null);
-            }}
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
+          <Typography
+            variant="h5"
+            sx={{ mb: 2, mt: 2, fontWeight: 'bold', color: '#333', fontFamily: 'monospace' }}
           >
-            Search by Address
-          </Button>
-          <Button
-            variant={searchMode === 'owner' ? 'contained' : 'outlined'}
-            onClick={() => {
-              setSearchMode('owner');
-              setProperties([]);
-              setQuery('');
-              setError(null);
-            }}
-          >
-            Search by Owner
-          </Button>
-        </Box>
-
-        {/* Search Bar */}
-        <Paper
-          component="form"
-          elevation={0}
-          sx={{
-            p: '2px 4px',
-            display: 'flex',
-            alignItems: 'center',
-            width: '60%',
-            border: '2px solid rgb(204, 204, 204)'
-          }}
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSearch();
-          }}
-        >
-          <InputBase
-            sx={{ ml: 1, flex: 1 }}
-            placeholder={searchMode === 'address' ? 'Enter address' : 'Enter owner name'}
-            inputProps={{ 'aria-label': 'search' }}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-          <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
-            <SearchIcon />
-          </IconButton>
-        </Paper>
-
-        {/* Error Message */}
-        {error && (
-          <Typography variant="body1" color="error" sx={{ mt: 2 }}>
-            {error}
+            Find Information About Boston Properties
           </Typography>
-        )}
 
-        {/* Display Results */}
-        <Box
-          sx={{
-            mt: 3,
-            width: '60%',
-            maxHeight: '300px',
-            overflowY: 'auto',
-            border: '1px solid #ccc',
-            borderRadius: '4px'
-          }}
-        >
-          {properties.length > 0 ? (
-            <List>
-              {properties.map((item, index) => (
-                <ListItem
-                  key={index}
-                  component="li"
-                >
-                  <Button onClick={() =>
-                    searchMode === 'address'
-                      ? handleListItemClick(item)
-                      : handleOwnerItemClick(item)
-                  }>
-                    <ListItemText primary={item} />
-                  </Button>
-                </ListItem>
-              ))}
-            </List>
-          ) : (
-            <Typography variant="body1" sx={{ mt: 2, textAlign: 'center' }}>
-              No results to show.
+          <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+            <Button
+              variant={searchMode === 'address' ? 'contained' : 'outlined'}
+              onClick={() => {
+                setSearchMode('address');
+                setProperties([]);
+                setQuery('');
+                setError(null);
+              }}
+            >
+              Search by Address
+            </Button>
+            <Button
+              variant={searchMode === 'owner' ? 'contained' : 'outlined'}
+              onClick={() => {
+                setSearchMode('owner');
+                setProperties([]);
+                setQuery('');
+                setError(null);
+              }}
+            >
+              Search by Owner
+            </Button>
+          </Box>
+
+          {/* Search Bar */}
+          <Paper
+            component="form"
+            elevation={0}
+            sx={{
+              p: '2px 4px',
+              display: 'flex',
+              alignItems: 'center',
+              width: '60%',
+              border: '2px solid rgb(204, 204, 204)'
+            }}
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearch();
+            }}
+          >
+            <InputBase
+              sx={{ ml: 1, flex: 1 }}
+              placeholder={searchMode === 'address' ? 'Enter address' : 'Enter owner name'}
+              inputProps={{ 'aria-label': 'search' }}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+            <IconButton type="button" sx={{ p: '10px' }} aria-label="search" onClick={handleSearch}>
+              <SearchIcon />
+            </IconButton>
+          </Paper>
+
+          {/* Error Message */}
+          {error && (
+            <Typography variant="body1" color="error" sx={{ mt: 2 }}>
+              {error}
             </Typography>
           )}
+
+          {/* Display Results */}
+          <Box
+            sx={{
+              mt: 3,
+              width: '60%',
+              maxHeight: '300px',
+              overflowY: 'auto',
+              border: '1px solid #ccc',
+              borderRadius: '4px'
+            }}
+          >
+            {properties.length > 0 ? (
+              <List>
+                {properties.map((item, index) => (
+                  <ListItem
+                    key={index}
+                    component="li"
+                  >
+                    <Button onClick={() =>
+                      searchMode === 'address'
+                        ? handleListItemClick(item)
+                        : handleOwnerItemClick(item)
+                    }>
+                      <ListItemText primary={item} />
+                    </Button>
+                  </ListItem>
+                ))}
+              </List>
+            ) : (
+              <Typography variant="body1" sx={{ mt: 2, textAlign: 'center' }}>
+                No results to show.
+              </Typography>
+            )}
+          </Box>
         </Box>
-      </Box>
+      </ThemeProvider>
+
     </div>
   );
 };

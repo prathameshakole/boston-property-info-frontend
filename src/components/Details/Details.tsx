@@ -1,4 +1,6 @@
 import React from 'react';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import NavBar from '../navbar';
 import Typography from '@mui/material/Typography';
@@ -10,15 +12,22 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-const Details = () => {
+
+interface DetailsProps {
+    darkMode: boolean;
+    toggleDarkMode: () => void;
+  }
+
+
+const Details = ({ darkMode , toggleDarkMode } : DetailsProps) => {
     const location = useLocation();
     const { propertyData } = location.state || {};
-    const defaultCenter = {
-        lat: propertyData.latitude || 42.3601,
-        lng: propertyData.longitude || -71.0589,
-    };
 
-    const defaultZoom = 5;
+    const theme = createTheme({
+        palette: {
+            mode: darkMode ? 'dark' : 'light',
+        },
+    });
 
     const renderPropertyData = () => {
         if (Array.isArray(propertyData)) {
@@ -74,10 +83,10 @@ const Details = () => {
         }
     };
 
-
     return (
-        <div>
-            <NavBar />
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
             <Box sx={{ display: 'flex', flexDirection: 'row', height: '90vh', width: '100%', justifyContent: 'space-between' }}>
                 <Box sx={{ flex: 1, height: '100%' }}>
                     This will be the map
@@ -86,7 +95,7 @@ const Details = () => {
                     {renderPropertyData()}
                 </Box>
             </Box>
-        </div>
+        </ThemeProvider>
     );
 };
 
