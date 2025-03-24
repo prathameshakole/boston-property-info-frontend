@@ -66,6 +66,19 @@ const client = axios.create({
       throw new Error(error.response.data.error || error.message);
     }    
   };
+
+  export const getPropertiesByOwner = async (owner: string) => {
+    try {
+      const response = await client.get(`${API_BASE_URL}/owner`, {
+        params: {
+          owner,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response.data.error || error.message);
+    }
+  };
   
 
 
