@@ -10,7 +10,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
-import { getPropertyByAddress, getAddressbyKeyword, getOwnersbyKeyword } from '../client';
+import { getPropertyByAddress, getAddressbyKeyword, getOwnersbyKeyword, getPropertiesByOwner } from '../client';
 import { useNavigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -28,16 +28,7 @@ const Homepage = ({ darkMode, toggleDarkMode } : HomepageProps) => {
   const [searchMode, setSearchMode] = useState<SearchMode>('address');
   const navigate = useNavigate();
 
-  const fetchProperties = async (address: string) => {
-    try {
-      setError(null);
-      const data = await getPropertyByAddress(address);
-      setProperties(data);
-    } catch (err: any) {
-      console.error(err);
-      setError(err.message);
-    }
-  };
+
 
   const fetchAddressesbyKeyword = async (keyword: string) => {
     try {
@@ -73,8 +64,8 @@ const Homepage = ({ darkMode, toggleDarkMode } : HomepageProps) => {
 
   const handleOwnerItemClick = async (owner: string) => {
     try {
-      console.log('Owner clicked:', owner);
-
+      const propertyData = await getPropertiesByOwner(owner);
+      navigate('/property-details', { state: { propertyData } });
     } catch (err: any) {
       console.error(err);
       setError(err.message);
