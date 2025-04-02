@@ -10,6 +10,8 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import PropertyMap from './PropertyMap';
 import PropertyDetailsTable from './PropertyDetailsTable';
 
+type SearchMode = 'address' | 'owner';
+
 interface DetailsProps {
   darkMode: boolean;
   toggleDarkMode: () => void;
@@ -17,10 +19,9 @@ interface DetailsProps {
 
 const Details = ({ darkMode, toggleDarkMode }: DetailsProps) => {
   const location = useLocation();
-  const { propertyData } = location.state || {};
+  const { propertyData, searchMode } = location.state || {};
   const navigate = useNavigate();
 
-  // Ensure propertyData is an array for consistent handling
   const properties = Array.isArray(propertyData)
     ? propertyData.length > 1
       ? propertyData
@@ -55,8 +56,9 @@ const Details = ({ darkMode, toggleDarkMode }: DetailsProps) => {
           New Search
         </Button>
         <Typography variant="body1" sx={{ ml: 2 }}>
-          The address is associated with {propertiesCount}{' '}
-          {propertiesCount === 1 ? 'property' : 'properties'}
+          {searchMode === 'owner' 
+            ? `The owner is associated with ${propertiesCount} ${propertiesCount === 1 ? 'property' : 'properties'}`
+            : `The address is associated with ${propertiesCount} ${propertiesCount === 1 ? 'property' : 'properties'}`}
         </Typography>
       </Box>
 
