@@ -320,7 +320,7 @@ const Homepage = ({ darkMode, toggleDarkMode }: HomepageProps) => {
   const handleListItemClick = async (address: string) => {
     try {
       const propertyData = await getPropertyByAddress(address);
-      navigate('/property-details', { state: { propertyData } });
+      navigate('/property-details', { state: { propertyData, searchMode } });
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Oops! I'm sorry. Something went wrong.");
@@ -330,7 +330,7 @@ const Homepage = ({ darkMode, toggleDarkMode }: HomepageProps) => {
   const handleOwnerItemClick = async (owner: string) => {
     try {
       const propertyData = await getPropertiesByOwner(owner);
-      navigate('/property-details', { state: { propertyData } });
+      navigate('/property-details', { state: { propertyData, searchMode } });
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Oops! I'm sorry. Something went wrong.");

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Homepage from './components/Homepage/homepage';
 import Details from './components/Details/Details';
+import About from './components/About/About';
 import { HashRouter } from "react-router-dom";
 import { Routes, Route } from "react-router";
 import { ThemeProvider } from '@mui/material/styles';
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
           <Route path="/property-details" element={<Details darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+          <Route path="/about" element={<About darkMode={darkMode} toggleDarkMode={toggleDarkMode}/>} />
         </Routes>
       </HashRouter>
     </ThemeProvider>
