@@ -21,7 +21,7 @@ const Details = ({ darkMode, toggleDarkMode }: DetailsProps) => {
   const location = useLocation();
   const { propertyData, searchMode } = location.state || {};
   const navigate = useNavigate();
-
+  
   const properties = Array.isArray(propertyData)
     ? propertyData.length > 1
       ? propertyData

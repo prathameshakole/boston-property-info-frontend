@@ -1,5 +1,7 @@
 import axios from 'axios';
-export const API_BASE_URL = "http://localhost:4000";
+
+// Use environment variable for API base URL, fallback to localhost for development
+export const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:4000";
 
 const client = axios.create({
     withCredentials: true,
@@ -72,6 +74,19 @@ const client = axios.create({
       const response = await client.get(`${API_BASE_URL}/owner`, {
         params: {
           owner,
+        },
+      });
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response.data.error || error.message);
+    }
+  };
+
+  export const getViolationsByAddress = async (address: string) => {
+    try {
+      const response = await client.get(`${API_BASE_URL}/properties/violation`, {
+        params: {
+          address,
         },
       });
       return response.data;

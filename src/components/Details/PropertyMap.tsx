@@ -9,7 +9,7 @@ import Map, {
   MapRef
 } from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Typography} from '@mui/material';
 
 interface Property {
   [key: string]: any;
