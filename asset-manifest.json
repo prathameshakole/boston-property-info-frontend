@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/boston-property-info-frontend/static/css/main.43d836e2.css",
+    "main.js": "/boston-property-info-frontend/static/js/main.8072a51c.js",
+    "static/js/66.717d509b.chunk.js": "/boston-property-info-frontend/static/js/66.717d509b.chunk.js",
+    "static/js/453.01dce86c.chunk.js": "/boston-property-info-frontend/static/js/453.01dce86c.chunk.js",
+    "index.html": "/boston-property-info-frontend/index.html",
+    "main.43d836e2.css.map": "/boston-property-info-frontend/static/css/main.43d836e2.css.map",
+    "main.8072a51c.js.map": "/boston-property-info-frontend/static/js/main.8072a51c.js.map",
+    "66.717d509b.chunk.js.map": "/boston-property-info-frontend/static/js/66.717d509b.chunk.js.map",
+    "453.01dce86c.chunk.js.map": "/boston-property-info-frontend/static/js/453.01dce86c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.43d836e2.css",
+    "static/js/main.8072a51c.js"
+  ]
+}
