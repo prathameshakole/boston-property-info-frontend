@@ -1,9 +1,10 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useTheme, ThemeProvider } from '@mui/material/styles';
 import NavBar from '../navbar';
 import CssBaseline from '@mui/material/CssBaseline';
+
 
 interface AboutProps {
     darkMode: boolean;
@@ -11,14 +12,9 @@ interface AboutProps {
 }
 
 const About = ({ darkMode, toggleDarkMode }: AboutProps) => {
-    const theme = createTheme({
-        palette: {
-            mode: darkMode ? 'dark' : 'light'
-        }
-    });
+    const theme = useTheme();
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
+        <>
             <Box>
                 <NavBar toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
                 <Typography variant="h3" align="center" gutterBottom>
@@ -31,7 +27,7 @@ const About = ({ darkMode, toggleDarkMode }: AboutProps) => {
                     Here you can search for properties by address, search for owners by keyword, or view the properties owned by a specific owner.
                 </Typography>
             </Box>
-        </ThemeProvider>
+        </>
     );
 };
 
